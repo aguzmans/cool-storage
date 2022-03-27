@@ -3,7 +3,7 @@ package main
 import (
     "runtime"
     "github.com/gin-gonic/gin"
-    "plugins/glacier"
+    "github.com/aguzmans/cool-storage/plugins/glacier"
 )
 
 func main() {

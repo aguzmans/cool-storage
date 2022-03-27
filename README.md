@@ -17,7 +17,7 @@ Get cheaper storage specially cheaper for backups and information that is not ne
 1.	Auth will Use LDAP
 2.	We will use the ORGs from seafile and their user system.
 3.	The org admin should be able to use these features or give other users access to do this.
-4.	Still need to make our mind about if we will bill for the interactions with NiHao Cloud or not.
+4.	Still need to make our mind about if we will bill for the interactions with other cloud or not.
 
 # Other general characteristics of the architecture
 1.	Auth with LDAP.
@@ -37,15 +37,15 @@ a)	Auth (token/creds) -> Success/failure
 b)	GetDirContentlist (user, searchCriteria) -> list of files.  This function will not talk to glacier directly but only to the DB.
 c)	PutFileFolderInStorage(path, destination, user) -> Success/failure. This function will upload a file to glacier and store all the meta data needed to retrieve it; region, size, encryption method, Compression method, etc. 
 a.	There will be need to have multipart upload here and make sure uploads are consistent.
-d)	RetriveObject(Target,Priority,DestinationPath,user) -> An object successfully download to local(phone/laptop,etc) or to NiHaoCloud.
-e)	ReportUsageMetrics(user, amount in Kb?) -> success/failure. It should probably report to our billing dashboard (dash.sesamedisk.com). The report should be about storage (every hour) or about new upload/download requests and execution from glacier to NiHao Cloud or to local.
+d)	RetriveObject(Target,Priority,DestinationPath,user) -> An object successfully download to local(phone/laptop,etc) or to other cloud.
+e)	ReportUsageMetrics(user, amount in Kb?) -> success/failure. It should probably report to our billing dashboard (dash.sesamedisk.com). The report should be about storage (every hour) or about new upload/download requests and execution from glacier to other cloud or to local.
 f)	ChangeStorageMode(for the next iteration)
 
 # Other features that are not part of the core API
 a)	Login.
 b)	Access definition dashboard. Where organization (Org) admin can define policies.
-c)	Configure and execute Cronjob schedule for batch jobs to archieve every x time from NiHao Cloud if the files have not been accessed and they are bigger than X size, etc..
-d)	Web interface to copy and more from local and from NiHao Cloud. When we say copy and move understand upload/download and delete.
+c)	Configure and execute Cronjob schedule for batch jobs to archieve every x time from other cloud if the files have not been accessed and they are bigger than X size, etc..
+d)	Web interface to copy and more from local and from other cloud. When we say copy and move understand upload/download and delete.
 e)	Add Phone app features for android and IOS.
 
 # Prototype UI:
@@ -63,9 +63,9 @@ d)	Restore files or folders now.
 
 ## Configure and execute Cronjob 
 Preferably to Create cronjobs as kubernetes cronjobs running on a separate process that reports results and ends once the scheduled job is finished.
-This feature would be to automatically backup or move files from NiHao Cloud Storage to the Cool Storage. Not sure how the interface should be, but we need; to be able to automate by age of last access, let say scan everything that is older than 2 month without being accessed and move or backup to the Cool Storage. This could be simply backup this folder with a new copy in the Cool Storage. We might also want to be able to have restore automated cronjobs, but it would a bit less important. This step will probably include the “Backup or move a file or folder NOW.” step.
+This feature would be to automatically backup or move files from other cloud Storage to the Cool Storage. Not sure how the interface should be, but we need; to be able to automate by age of last access, let say scan everything that is older than 2 month without being accessed and move or backup to the Cool Storage. This could be simply backup this folder with a new copy in the Cool Storage. We might also want to be able to have restore automated cronjobs, but it would a bit less important. This step will probably include the “Backup or move a file or folder NOW.” step.
 ## Backup or move a file or folder NOW.
-File: from local or from NiHao Cloud
+File: from local or from other cloud
 Destination:
 Move or just Copy: Option and explain the difference.
 
