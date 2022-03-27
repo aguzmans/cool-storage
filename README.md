@@ -1,29 +1,17 @@
 # Cool Storage Project plan
-We are a small company that offers could storage as a service. We have a more or less working product, but we want to also offer a new version of that product that costs much less by taking advantage of AWS Glacier deep storage. The idea is for people to be able to ether backup DIRECTLY to Glacier or put what they have in the regular Cloud storage we offer into Glacier directly from out interface. Your job will be the CORE API that will actually do the work of storing and retrieving from Glacier to local computer or to our cloud service.
+ get your personal storage to cost lest by taking advantage of AWS Glacier deep storage. The idea is for people to be able to ether backup DIRECTLY to Glacier or put what they have in the regular Cloud storage we offer into Glacier directly. This CORE API will actually do the work of storing and retrieving from Glacier to local computer or to another cloud service.
 
-The idea of cool storage plan to bring AWS S3 Glacier to end user’s hands and reduce the cost of doing business with us considerably. Think of cool storage as a proxy between NiHao Cloud who will actually save things to AWS Glacier.
+The idea of cool storage plan to bring AWS S3 Glacier to end user’s hands and reduce the cost of doing business considerably. Think of cool storage as a proxy between backup and regular local files and clouds.
 
 # The problem
-NiHao Cloud needs to get cheaper specially cheaper for backups and information that is not needed right away.
+Get cheaper storage specially cheaper for backups and information that is not needed right away.
 
-## Target customer of this systen:
-1.	Existing customers of the cloud collaboration storage system who want to save in space costs.
-1.	New Customers who need a cheap backup option for BIG bulks of data.
-2.	Customers who need to keep information safe from Governments and third parties. (
+## Target audiance of this systen:
+1.	People who need backups at the low cost of AWS glacier.
 
 ## Security considerations:
-1.	The files stored need to be compressed and encrypted (by US or by customer).
-2.	If we create and APP that would directly store things in glacier; Can we secure AWS credentials on an app on the client side? 
-3.	Can we create a secure api that does all the processing and proxies data to glacier; from NiHao Cloud Seafile OR directly from APP?
-
-## Cost and Pricing considerations:
-This would be viable if we can change ~2x the cost of glacier, but make it FULLY compatible with nihao Cloud. This would also be our own software and not directly related to seafile, but it need to talk to seafile for many activities. So going back to billing; we would change 2x storage + 2x retrival cost. The retrival cost could be bulk (free), Standard(medium cost) or Expedite (expensive).
-
-## The solution
-From Nihao Cloud we need to be able to copy or move Libraries, files and folders. The flow would be for copy, just make a backup to glacier. For move would be copy to glacier and then remove from NiHao Cloud.
-
-# The options to restore should be
-1.	Download now(to users local system; phone, laptop, pc, etc) or restore to NiHao Cloud. And then you should be able to choose or configure retrival; if bulk, standard or express.
+1.	The files stored need to be compressed and encrypted (by US or by user).
+2.	Can we create a secure api that does all the processing and proxies data to glacier
 
 # To access the user will
 1.	Auth will Use LDAP
@@ -33,9 +21,14 @@ From Nihao Cloud we need to be able to copy or move Libraries, files and folders
 
 # Other general characteristics of the architecture
 1.	Auth with LDAP.
-2.	DB: should be CHEAP, Distributed, minumally eventually consistent. Should have information to make smart storage decisions. We should explore NoSQL like DDB, MongoDB and ES.
-3.	Programming language will probably be golang or rust. I prefer Golang. Will use Boto and other AWS SDK for golang. The software needs to have unit tests and other tests. The final objective of the first iteration will be an API.The Db will store information enough to know where to store for a use based on geolocation. 
-4.	We should think of programming the system to have plugable storages in the future if we found a cheaper form of storage comapred to AWS glacier. So the usage of boto should be in the form of a plugin that is activated. Then this smart system should know when to use one storage or other based on user request and auntomate everything that is not defined by the user.
+2.	DB: will be MySQL.
+3.	Programming language will be golang. Will use Boto and other AWS SDK for golang. 
+4. The software needs to have unit tests and other tests. The final objective of the first iteration will be an API. 
+5. The Db will store information enough to know where to store for a use based on geolocation. 
+6.	We should think of programming the system to have plugable storages in the future if we found a cheaper form of storage comapred to AWS glacier. 
+7. So the usage of glacier or other storages should be in the form of a plugin that is activated. 
+8. Then this smart system should know when to use one storage or other based on user request and auntomate everything that is not defined by the user.
+9. The system should be able to consider one storage class a cache for another. s3 as cache for Glacier and similar.
 
 There are 3 types of glacier, this software should aim at the cheaper options. Probably Deep archieve Glacier instead of Instant retrival and Flexible stprage graciar. This at least for version 1.0.
 
