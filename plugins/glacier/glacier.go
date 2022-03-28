@@ -5,28 +5,28 @@ import (
 
 	// "context"
 
-	// "github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/config"
 	// "github.com/aws/aws-sdk-go/aws"
 	// "github.com/aws/aws-sdk-go/aws/credentials"
 	// "github.com/aws/aws-sdk-go/aws/session"
 	"context"
 	"log"
 
-	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aguzmans/cool-storage/configread"
 )
 
 const (
 	S3_REGION = "ap-southeast-1"
 )
 
-func Glacier() {
+func Glacier(configFile configread.Config) {
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithSharedConfigProfile("nihao-prod"))
+		config.WithSharedConfigProfile(configFile.Aws.Profile))
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Panicln(cfg)
+	log.Print(cfg)
 	// create an AWS session which can be
 	// reused if we're uploading many files
 	// s, err := session.NewSession(&aws.Config{
