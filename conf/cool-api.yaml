@@ -1,0 +1,7 @@
+aws:
+  profiles:
+    - region: "ap-southeast-1"
+      name: "nihao-prod2"
+    - region: "ap-northheast-2"
+      name: "nihao-prod"
+# ldap:

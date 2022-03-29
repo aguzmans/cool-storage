@@ -1,32 +1,35 @@
 package glacier
 
 import (
-	// "fmt"
-
-	// "context"
-
-	"github.com/aws/aws-sdk-go-v2/config"
-	// "github.com/aws/aws-sdk-go/aws"
-	// "github.com/aws/aws-sdk-go/aws/credentials"
-	// "github.com/aws/aws-sdk-go/aws/session"
 	"context"
 	"log"
 
 	"github.com/aguzmans/cool-storage/configread"
+	"github.com/aws/aws-sdk-go-v2/config"
 )
 
-const (
-	S3_REGION = "ap-southeast-1"
-)
-
-func Glacier(configFile configread.Config) {
+func Glacier(configFile configread.Profile) {
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithSharedConfigProfile(configFile.Aws.Profile))
+		config.WithSharedConfigProfile(configFile.Name))
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Print(cfg)
+	log.Println(cfg)
+	// sess, err := session.NewSessionWithOptions(session.Options{
+	// 	Config: aws.Config{Region: aws.String(region),
+	// 			  CredentialsChainVerboseErrors: aws.Bool(true)},
+	// 	Profile: profile,
+	// })
+
+	// sess, errSess := session.NewSession(&aws.Config{
+	// 	Region: aws.String(configFile.Aws.Region)},
+	// )
+	// if errSess != nil {
+	// 	log.Println(err)
+	// 	return
+	// }
+	// log.Panicln(sess)
 	// create an AWS session which can be
 	// reused if we're uploading many files
 	// s, err := session.NewSession(&aws.Config{

@@ -2,6 +2,7 @@ package main
 
 import (
 	// "main/plugins/glacier"
+
 	"runtime"
 
 	"github.com/aguzmans/cool-storage/configread"
@@ -9,7 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func coolStorage(config configread.Config) {
+func coolStorage(config configread.Profile) {
+
 	glacier.Glacier(config)
 	router := gin.Default()
 	router.GET("/api/ping", func(c *gin.Context) {
@@ -24,6 +26,6 @@ func coolStorage(config configread.Config) {
 }
 
 func main() {
-	config := configread.GetConfig()
-	coolStorage(config)
+	config := configread.ParseYamlConfig("conf/cool-api.yaml")
+	coolStorage(config.AwsConfig.Profiles[0])
 }
