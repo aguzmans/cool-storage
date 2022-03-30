@@ -6,17 +6,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// type Config struct {
-// 	AwsConfig Aws
-// 	// Need to think of what information is required
-// 	// for each LDAP HOST and if they belong to a region.
-// 	// Ldap      struct {
-// 	// }
-// }
-
-// type Aws struct {
-// 	Profiles []Profile
-// } `yaml:"profiles"`
 type Config struct {
 	AwsConfig Aws `yaml:"aws"`
 	// Need to think of what information is required
@@ -54,11 +43,3 @@ func ParseYamlConfig(pathYaml string) Config {
 	}
 	return conf1
 }
-
-// func GetConfig() Config {
-// 	var conf Config
-// 	if err := gcfg.ReadFileInto(&conf, "conf/cool-api.conf"); err != nil {
-// 		log.Fatal("Error parsing configuration : ", err)
-// 	}
-// 	return conf
-// }

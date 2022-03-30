@@ -1,8 +1,6 @@
 package main
 
 import (
-	// "main/plugins/glacier"
-
 	"runtime"
 
 	"github.com/aguzmans/cool-storage/configread"
@@ -14,7 +12,7 @@ func coolStorage(config configread.Profile) {
 
 	glacier.Glacier(config)
 	router := gin.Default()
-	router.GET("/api/ping", func(c *gin.Context) {
+	router.GET("/cool-storage/api/v1/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
